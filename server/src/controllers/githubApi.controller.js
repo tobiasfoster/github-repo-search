@@ -13,4 +13,14 @@ async function getRepos(req, res, next) {
   }
 }
 
-module.exports = { getRepos };
+async function getRepo(req, res, next) {
+  try {
+    const { owner, repo } = req.query;
+    res.json(await githubApiService.getRepo(owner, repo));
+  } catch (err) {
+    console.error(`An error occured`, err.message);
+    next(err);
+  }
+}
+
+module.exports = { getRepos, getRepo };
