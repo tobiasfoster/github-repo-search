@@ -26,7 +26,7 @@ const RepoCard: React.FC<
   return (
     <div
       className={`grid grid-cols-2 border-2 border-gray-600 rounded-md p-2 ${
-        displayType === "truncated" && "hover: bg-gray-800"
+        displayType === "truncated" && "hover:bg-gray-800"
       }`}
     >
       <div className="flex flex-col items-start">
