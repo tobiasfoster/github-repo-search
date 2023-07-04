@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { RepoResponse } from "../../types/githubApi";
 import truncateText from "../../utils/truncateText";
 import CountLabel from "../shared/CountLabel";
+import "./search.component.css";
 
 const RepoCard: React.FC<Partial<RepoResponse>> = ({
   owner,
@@ -28,11 +29,6 @@ const RepoCard: React.FC<Partial<RepoResponse>> = ({
         </div>
         <div className="flex items-center gap-4">
           <h2 className="font-semibold text-lg">{name}</h2>
-        </div>
-        <div className="flex gap-4 items-center">
-          <h3 className="text-sm text-orange-400">
-            Last Updated: {new Date(updated_at!).toLocaleDateString("en-GB")}
-          </h3>
           <a
             className="text-sm"
             target="_blank"
@@ -41,6 +37,11 @@ const RepoCard: React.FC<Partial<RepoResponse>> = ({
           >
             View on GitHub
           </a>
+        </div>
+        <div className="flex gap-4 items-center">
+          <h3 className="text-sm text-orange-400">
+            Last Updated: {new Date(updated_at!).toLocaleDateString("en-GB")}
+          </h3>
         </div>
         <p className="text-left mt-2">{truncateText(description)}</p>
         <NavLink
