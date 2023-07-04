@@ -8,7 +8,7 @@ type ButtonProps = {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   return (
-    <button onChange={props.clickHandler} ref={ref ?? null} id={props.id}>
+    <button onClick={props.clickHandler} ref={ref ?? null} id={props.id}>
       {props.text}
     </button>
   );
