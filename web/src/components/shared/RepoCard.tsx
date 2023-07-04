@@ -2,10 +2,15 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { RepoResponse } from "../../types/githubApi";
 import truncateText from "../../utils/truncateText";
-import CountLabel from "../shared/CountLabel";
-import "./search.component.css";
+import CountLabel from "./CountLabel";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from "remark-gfm";
 
-const RepoCard: React.FC<Partial<RepoResponse>> = ({
+type RepoCardDisplayType = "truncated" | "full";
+
+const RepoCard: React.FC<
+  Partial<RepoResponse & { readme?: string; displayType: RepoCardDisplayType }>
+> = ({
   owner,
   name,
   description,
@@ -15,9 +20,15 @@ const RepoCard: React.FC<Partial<RepoResponse>> = ({
   watchers_count,
   updated_at,
   html_url,
+  readme,
+  displayType,
 }) => {
   return (
-    <div className="flex justify-between border-2 border-gray-600 rounded-md p-2 hover:bg-gray-800">
+    <div
+      className={`grid grid-cols-2 border-2 border-gray-600 rounded-md p-2 ${
+        displayType === "truncated" && "hover:bg-gray-800"
+      }`}
+    >
       <div className="flex flex-col items-start">
         <div className="flex justify-start gap-2 items-center mb-2">
           <img
@@ -40,16 +51,21 @@ const RepoCard: React.FC<Partial<RepoResponse>> = ({
         </div>
         <div className="flex gap-4 items-center">
           <h3 className="text-sm text-orange-400">
-            Last Updated: {new Date(updated_at!).toLocaleDateString("en-GB")}
+            Last Updated:{" "}
+            {updated_at
+              ? new Date(updated_at).toLocaleDateString("en-GB")
+              : "N/A"}
           </h3>
         </div>
         <p className="text-left mt-2">{truncateText(description)}</p>
-        <NavLink
-          className={"mt-2"}
-          to={`/detail?owner=${owner?.login}&repo=${name}`}
-        >
-          View more
-        </NavLink>
+        {displayType === "truncated" && (
+          <NavLink
+            className={"mt-2"}
+            to={`/detail?owner=${owner?.login}&repo=${name}`}
+          >
+            View more
+          </NavLink>
+        )}
       </div>
       <div className="flex flex-col gap-2 text-right min-w-[20%]">
         <h3>
@@ -65,6 +81,16 @@ const RepoCard: React.FC<Partial<RepoResponse>> = ({
           Watchers: <CountLabel count={watchers_count} />
         </h3>
       </div>
+      {displayType === "full" && readme && (
+        <div className="p-2 my-4 mx-2 md:p-4 md:m-8 col-span-2 border-1-white bg-neutral-900 rounded-md">
+          <h2 className="my-2 text-2xl border-b-2">README</h2>
+          <ReactMarkdown
+            className="markdown"
+            children={readme}
+            remarkPlugins={[remarkGfm]}
+          />
+        </div>
+      )}
     </div>
   );
 };

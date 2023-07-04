@@ -1,5 +1,4 @@
 import { FC } from "react";
-import "./shared.component.css";
 
 type LoaderSize = "small" | "medium" | "large";
 type LoaderProps = {

@@ -1,3 +1,4 @@
+@import "./components/shared//styles/markdown.style.scss";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -22,4 +23,28 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+}
+
+a {
+  text-decoration: underline;
+  color: #646cff;
+}
+
+a:hover {
+  color: #646cffa2;
+}
+
+.img-github-avatar {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
