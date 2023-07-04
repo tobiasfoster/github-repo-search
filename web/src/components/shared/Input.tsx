@@ -6,17 +6,18 @@ interface InputProps extends HtmlHTMLAttributes<HTMLInputElement> {
   value: string;
   placeholder?: string;
   changeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+  classes?: string[];
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <input
+      className={`py-2 pl-2 rounded-md ${props.classes?.join(" ")}`}
       onChange={props.changeHandler}
-      value={props.value}
       ref={ref ?? null}
-      id={props.id}
       placeholder={props.placeholder ?? ""}
       onKeyDown={props.onKeyDown}
+      {...props}
     />
   );
 });

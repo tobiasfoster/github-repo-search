@@ -6,11 +6,13 @@ type SelectProps = {
   id: string;
   value: string | number;
   changeHandler: (e: ChangeEvent<HTMLSelectElement>) => void;
+  classes?: string[];
 };
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>((props, ref) => {
   return (
     <select
+      className={`pl-2 rounded-md ${props.classes?.join(" ")}`}
       value={props.value}
       onChange={props.changeHandler}
       ref={ref ?? null}
