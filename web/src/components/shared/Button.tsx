@@ -5,7 +5,6 @@ type ButtonProps = {
   text: string;
   clickHandler: () => void;
   classes?: string[];
-  loading?: boolean;
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
